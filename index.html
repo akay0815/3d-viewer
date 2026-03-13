@@ -1,80 +1,82 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>AR.js Marker Test</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HEISSNER AR Korb</title>
 
-  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
     html, body {
       margin: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       font-family: Arial, sans-serif;
-      background: #000;
+      background: #f3f3f3;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100vh;
+      background: #f3f3f3;
     }
 
     .hint {
-      position: fixed;
-      top: 12px;
-      left: 12px;
-      right: 12px;
-      z-index: 20;
-      background: rgba(255,255,255,0.92);
-      color: #222;
-      padding: 10px 12px;
-      border-radius: 10px;
+      position: absolute;
+      top: 70px;
+      left: 16px;
+      right: 16px;
+      z-index: 2;
       text-align: center;
+      background: rgba(255,255,255,0.92);
+      padding: 10px 14px;
+      border-radius: 10px;
       font-size: 14px;
-      line-height: 1.35;
+      color: #333;
+    }
+
+    .ar-button {
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 32px;
     }
   </style>
 </head>
 <body>
+
   <div class="hint">
-    Test: Wenn der Hiro-Marker erkannt wird, erscheint ein roter Würfel. Bitte Rückkamera verwenden und den Marker komplett ins Bild nehmen.
+    Modell zuerst ruhig ansehen, dann auf <b>AR starten</b> tippen. In AR langsam auf den Boden richten.
   </div>
 
-  <a-scene
-    embedded
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false"
-    renderer="antialias: true; alpha: true;"
-    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-  >
-    <a-marker preset="hiro">
-      <a-box
-        position="0 0.5 0"
-        rotation="0 0 0"
-        depth="0.3"
-        height="0.3"
-        width="0.3"
-        color="red">
-      </a-box>
-    </a-marker>
+  <model-viewer
+    src="korb.glb"
+    alt="HEISSNER Korb"
+    ar
+    ar-modes="scene-viewer webxr quick-look"
+    ar-placement="floor"
+    camera-controls
+    touch-action="pan-y"
+    shadow-intensity="1"
+    exposure="1"
+    environment-image="neutral"
+    interaction-prompt="auto"
+    loading="eager"
+    reveal="auto"
+    scale="0.4 0.4 0.4"
+    min-camera-orbit="auto auto 0.8m"
+    max-camera-orbit="auto auto 8m">
 
-    <a-entity camera></a-entity>
-  </a-scene>
+    <button slot="ar-button" class="ar-button">
+      AR starten
+    </button>
 
-  <script>
-    async function forceBackCamera() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { ideal: "environment" }
-          },
-          audio: false
-        });
-        stream.getTracks().forEach(track => track.stop());
-      } catch (e) {
-        console.log("Kamera-Vortest nicht möglich:", e);
-      }
-    }
-    forceBackCamera();
-  </script>
+  </model-viewer>
+
 </body>
 </html>

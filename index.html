@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR Demo</title>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100vh;
+      background: #f3f3f3;
+    }
+
+    .hint {
+      position: absolute;
+      top: 80px;
+      left: 16px;
+      right: 16px;
+      z-index: 2;
+      text-align: center;
+      background: rgba(255,255,255,0.92);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .ar-button {
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hint">
+    Modell ansehen und dann auf <b>AR starten</b> tippen
+  </div>
+
+  <model-viewer
+    src="korb.glb"
+    alt="3D-Modell"
+    ar
+    ar-modes="scene-viewer webxr"
+    ar-placement="floor"
+    camera-controls
+    shadow-intensity="1"
+    exposure="1"
+    interaction-prompt="auto"
+    loading="eager">
+
+    <button slot="ar-button" class="ar-button">
+      AR starten
+    </button>
+
+  </model-viewer>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HEISSNER AR Korb</title>
+  <title>AR.js Marker Test</title>
 
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
@@ -32,7 +32,7 @@
 </head>
 <body>
   <div class="hint">
-    Kamera auf den Hiro-Marker richten. Halte etwas Abstand und nimm den Marker komplett ins Bild.
+    Test: Wenn Hiro erkannt wird, erscheint ein roter Würfel auf dem Marker.
   </div>
 
   <a-scene
@@ -42,17 +42,8 @@
     renderer="antialias: true; alpha: true;"
     arjs="sourceType: webcam; debugUIEnabled: false;">
 
-    <a-assets>
-      <a-asset-item id="korbModel" src="./korb.glb"></a-asset-item>
-    </a-assets>
-
     <a-marker preset="hiro">
-      <a-entity
-        gltf-model="#korbModel"
-        position="0 0.5 0"
-        rotation="0 0 0"
-        scale="0.05 0.05 0.05">
-      </a-entity>
+      <a-box position="0 0.5 0" depth="0.5" height="0.5" width="0.5" color="red"></a-box>
     </a-marker>
 
     <a-entity camera></a-entity>
